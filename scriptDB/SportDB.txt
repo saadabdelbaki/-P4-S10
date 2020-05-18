@@ -1,0 +1,112 @@
+CREATE DATABASE sport
+use sport
+
+CREATE TABLE Entitesportif(
+	ID int NOT NULL IDENTITY, 
+	Nom varchar(50), 
+	Date_creation Date, 
+	Username varchar(50), 
+	Password int, 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Athlete(
+	ID int NOT NULL IDENTITY, 
+	Nom varchar(50), 
+	Prenom varchar(50), 
+	Date_naissance Date, 
+	Categorie varchar(50), 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Critere_sante(
+	ID int NOT NULL IDENTITY,
+	Nom_indice varchar(50), 
+	Valeur_min int, 
+	Valeur_max int, 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE TypeCompetition(
+	ID int NOT NULL IDENTITY,  
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Competition(
+	ID int NOT NULL IDENTITY, 
+	[Type CompetitionID] int NOT NULL, 
+	Nom varchar(50), 
+	[Date] Date, 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE CategorieAge(
+	ID int NOT NULL IDENTITY, 
+	[Age de] Date, 
+	[Age a] Date, 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Critere(
+	ID int NOT NULL IDENTITY,
+	SportID int NOT NULL, 
+	Nom varchar(50), 
+	Description varchar(200), 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Sport(
+	ID int NOT NULL IDENTITY, 
+	Description varchar(50), 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Santeathlete(
+	ID int NOT NULL IDENTITY, 
+	Valeur int, 
+	Date_exam int, 
+	Critere_santeID int, 
+	AthleteID int, 
+	PRIMARY KEY (ID)
+);
+
+CREATE TABLE Performance(
+	Valeur int,
+	id int REFERENCES Athlete(ID),
+	ides int REFERENCES Entitesportif(ID),
+	idsp int REFERENCES Sport(ID),
+	idst int REFERENCES Santeathlete(ID)
+);
+
+CREATE TABLE Entiteathlete(
+	ID int NOT NULL IDENTITY,
+	Date_debut Date, 
+	Date_Fin Date, 
+	AthleteID int, 
+	[Entite-sportifID] int, 
+	PRIMARY KEY (ID)
+);
+
+ALTER TABLE Critere ADD CONSTRAINT FKCritere964352 FOREIGN KEY (SportID) REFERENCES Sport (ID);
+ALTER TABLE Santeathlete ADD CONSTRAINT FKSanteathlete FOREIGN KEY (Critere_santeID) REFERENCES Critere_sante(ID);
+ALTER TABLE Santeathlete ADD CONSTRAINT FK_Santeathlete FOREIGN KEY (AthleteID) REFERENCES Athlete(ID);
+ALTER TABLE Competition ADD CONSTRAINT FKCompetitio137291 FOREIGN KEY ([Type CompetitionID]) REFERENCES TypeCompetition(ID);
+ALTER TABLE Entiteathlete ADD CONSTRAINT FKEntiteathlete FOREIGN KEY ([Entite-sportifID]) REFERENCES Entitesportif(ID);
+ALTER TABLE Entiteathlete ADD CONSTRAINT FK_Entiteathlete FOREIGN KEY (AthleteID) REFERENCES Athlete(ID);
+ALTER TABLE CategorieAge ADD CONSTRAINT FK_CategorieAge FOREIGN KEY (AthleteID) REFERENCES Athlete(ID);
+ALTER TABLE Athlete ADD CONSTRAINT FK_competition FOREIGN KEY (CompetitionID) REFERENCES Competition(ID);
+
+ALTER TABLE TypeCompetition ADD TypeCom varchar(40);
+ALTER TABLE CategorieAge ADD AthleteID int;
+ALTER TABLE Athlete ADD CompetitionID int;
+
+SELECT * FROM Athlete;
+SELECT * FROM CategorieAge;
+SELECT * FROM Competition;
+SELECT * FROM Critere;
+SELECT * FROM Critere_sante;
+SELECT * FROM Performance;
+SELECT * FROM Santeathlete;
+SELECT * FROM TypeCompetition;
+SELECT * FROM Entiteathlete
+SELECT * FROM Sport;
